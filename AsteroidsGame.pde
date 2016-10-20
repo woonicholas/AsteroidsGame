@@ -1,15 +1,75 @@
 //your variable declarations here
 public void setup() 
 {
-  //your code here
+  size(800,800);//your code here
 }
 public void draw() 
 {
+  SpaceShip joe = new SpaceShip();
+  joe.setX(400);
+  joe.setY(400);
+  joe.show();
   //your code here
 }
-class SpaceShip //extends Floater  
+class SpaceShip extends Floater  
 {   
-    //your code here
+  public SpaceShip()
+  {
+    /*
+    myCenterX = getX();
+    myCenterY = getY();
+    myPointDirection = getPointDirection();
+    myDirectionX =getDirectionX();
+    myDirectionY=getDirectionY();
+    */
+    corners = 6;
+    int [] xs = {8,-6,-3,-6,-3,-6,8};
+    int [] ys = {0,-10,-4,0,4,10,0};
+    xs = xCorners;
+    ys = yCorners;
+   
+  } 
+  public void setX(int x)
+    {
+      myCenterX = x;
+    }
+  public void setY(int y)
+  {
+    myCenterY=y;
+   //your code here
+  }
+  public double getX()
+  {
+    return myCenterX;
+  }
+  public double getY()
+  {
+    return myCenterY;
+  }
+  public void setDirectionX(double x) 
+  {
+    myDirectionX = x; 
+  }
+  public void setDirectionY(double y) 
+  {
+    myDirectionY = y;  
+  }
+  public double getDirectionX() 
+  {
+    return myDirectionX;
+  }
+  public double getDirectionY()
+  {
+    return myDirectionY;
+  }
+  public void setPointDirection(int degrees)
+  {
+    myPointDirection = degrees; 
+  }
+  public double getPointDirection() 
+  {
+    return myPointDirection;
+  }
 }
 abstract class Floater //Do NOT modify the Floater class! Make changes in the SpaceShip class 
 {   
