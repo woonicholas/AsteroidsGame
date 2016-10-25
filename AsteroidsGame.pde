@@ -1,32 +1,74 @@
 //your variable declarations here
+
+SpaceShip joe = new SpaceShip();
 public void setup() 
 {
-  size(800,800);//your code here
+  size(800,800);
+  
+
+  //your code here
 }
 public void draw() 
+
+
 {
-  SpaceShip joe = new SpaceShip();
-  joe.setX(400);
-  joe.setY(400);
+  background(0);  
+  joe.move();
   joe.show();
-  //your code here
+//your code here
+}
+public void keyPressed()
+{
+  if(key == 'w')
+  {
+    joe.accelerate(.5); // increases speed of ship
+  }
+  if(key =='s')
+  {
+    joe.accelerate(-.5); //decreases speed of ship
+  }
+  if(key =='d')
+  {
+    joe.rotate(20);
+  }
+  if(key =='a')
+  {
+    joe.rotate(-20);
+  }
+  if(key == 'h')
+  {
+    joe.setX((int)(Math.random()*800));
+    joe.setY((int)(Math.random()*800));
+    joe.setDirectionX(0);
+    joe.setDirectionY(0);
+  }
 }
 class SpaceShip extends Floater  
 {   
   public SpaceShip()
   {
-    /*
-    myCenterX = getX();
-    myCenterY = getY();
-    myPointDirection = getPointDirection();
-    myDirectionX =getDirectionX();
-    myDirectionY=getDirectionY();
-    */
     corners = 6;
-    int [] xs = {8,-6,-3,-6,-3,-6,8};
-    int [] ys = {0,-10,-4,0,4,10,0};
-    xs = xCorners;
-    ys = yCorners;
+    xCorners = new int[corners];
+    yCorners = new int[corners];
+    xCorners[0] = 8;
+    yCorners[0] = 0;
+    xCorners[1] = -6;
+    yCorners[1] = -10;
+    xCorners[2] = -3;
+    yCorners[2] = -4;
+    xCorners[3] = -6;
+    yCorners[3] = 0;
+    xCorners[4] = -3;
+    yCorners[4] = 4;
+    xCorners[5] = -6;
+    yCorners[5] = 10;
+
+    myColor = color(255,255,255);
+    myCenterX = 400;
+    myCenterY=400;
+    myDirectionX=0;
+    myDirectionY=0;
+    myPointDirection = 0;
    
   } 
   public void setX(int x)
@@ -38,13 +80,13 @@ class SpaceShip extends Floater
     myCenterY=y;
    //your code here
   }
-  public double getX()
+  public int getX()
   {
-    return myCenterX;
+    return (int)myCenterX;
   }
-  public double getY()
+  public int getY()
   {
-    return myCenterY;
+    return (int)myCenterY;
   }
   public void setDirectionX(double x) 
   {
