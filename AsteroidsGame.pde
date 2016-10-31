@@ -1,7 +1,7 @@
 //your variable declarations here
 
 SpaceShip joe = new SpaceShip();
-
+Asteroid rock = new Asteroid();
 public void setup() 
 {
   size(800,800);
@@ -10,14 +10,14 @@ public void setup()
   //your code here
 }
 public void draw()
-
-
 {
   background(0);  
   joe.move();
   joe.show();
+  rock.show();
 //your code here
 }
+
 public void keyPressed()
 {
   if(key == 'w')
@@ -46,6 +46,33 @@ public void keyPressed()
 }
 class Asteroid extends Floater
 {
+  private int rotSpeed;
+  public Asteroid()
+  {
+
+    corners = 6;
+    xCorners = new int[corners];
+    yCorners = new int[corners];
+    xCorners[0] = 15;
+    yCorners[0] = 0;
+    xCorners[1] = 15;
+    yCorners[1] = -6;
+    xCorners[2] = 6;
+    yCorners[2] = -12;
+    xCorners[3] = -15;
+    yCorners[3] = 0;
+    xCorners[4] = -15;
+    yCorners[4] = 6;
+    xCorners[5] = 6;
+    yCorners[5] = 9;
+
+    myColor = color((int)(Math.random()*255),(int)(Math.random()*255),(int)(Math.random()*255));
+    myCenterX =(int)(Math.random()*800);
+    myCenterY=(int)(Math.random()*800);
+    myDirectionX=0;
+    myDirectionY=0;
+    myPointDirection = (int)(Math.random()*800);
+  }
   public void setX(int x)
     {
       myCenterX = x;
@@ -107,23 +134,47 @@ class SpaceShip extends Floater
     yCorners[4] = 4;
     xCorners[5] = -6;
     yCorners[5] = 10;
-
     myColor = color(255,255,255);
     myCenterX = 400;
     myCenterY=400;
     myDirectionX=0;
     myDirectionY=0;
     myPointDirection = 0;
-   
+    
   } 
+
+  public void move ()   //move the floater in the current direction of travel
+  {      
+    //rotation speed
+    
+    //change the x and y coordinates by myDirectionX and myDirectionY       
+    myCenterX += myDirectionX;    
+    myCenterY += myDirectionY;     
+    //wrap around screen    
+    if(myCenterX >width)
+    {     
+      myCenterX = 0;    
+    }    
+    else if (myCenterX<0)
+    {     
+      myCenterX = width;    
+    }    
+    if(myCenterY >height)
+    {    
+      myCenterY = 0;    
+    }   
+    else if (myCenterY < 0)
+    {     
+      myCenterY = height;    
+    }   
+  }   
   public void setX(int x)
-    {
-      myCenterX = x;
-    }
+  {
+    myCenterX = x;
+  }
   public void setY(int y)
   {
     myCenterY=y;
-   //your code here
   }
   public int getX()
   {
