@@ -1,11 +1,15 @@
 //your variable declarations here
-
+Asteroid rock[] = new Asteroid[25];
 SpaceShip joe = new SpaceShip();
-Asteroid rock = new Asteroid();
+
 public void setup() 
 {
   size(800,800);
-  
+  for(int i = 0; i<rock.length; i++)
+  {
+    rock[i] = new Asteroid();
+    rock[i].accelerate(1);
+  }
 
   //your code here
 }
@@ -14,7 +18,12 @@ public void draw()
   background(0);  
   joe.move();
   joe.show();
-  rock.show();
+  for(int i = 0; i<rock.length ; i++)
+  {
+  rock[i].move();
+  rock[i].show();
+
+  }
 //your code here
 }
 
@@ -30,11 +39,13 @@ public void keyPressed()
   }
   if(key =='d')
   {
-    joe.rotate(20);
+    joe.rotate(10);
+    joe.accelerate(.5);
   }
   if(key =='a')
   {
-    joe.rotate(-20);
+    joe.rotate(-10 );
+    joe.accelerate(.5);
   }
   if(key == 'h')
   {
@@ -44,12 +55,22 @@ public void keyPressed()
     joe.setDirectionY(0);
   }
 }
+  public void keyReleased() 
+  {
+      joe.setDirectionX(.5 *Math.cos(joe.getPointDirection()*(Math.PI/180)));
+      joe.setDirectionY(.5 *Math.sin(joe.getPointDirection()*(Math.PI/180)));
+
+  }
 class Asteroid extends Floater
 {
   private int rotSpeed;
   public Asteroid()
   {
-
+    rotSpeed = (int)(Math.random()*9)-5;
+    if(rotSpeed == 0)
+    {
+      rotSpeed ++;
+    }
     corners = 6;
     xCorners = new int[corners];
     yCorners = new int[corners];
@@ -62,7 +83,7 @@ class Asteroid extends Floater
     xCorners[3] = -15;
     yCorners[3] = 0;
     xCorners[4] = -15;
-    yCorners[4] = 6;
+    yCorners[4] = 8;
     xCorners[5] = 6;
     yCorners[5] = 9;
 
@@ -114,6 +135,12 @@ class Asteroid extends Floater
   {
     return myPointDirection;
   }
+
+  public void move()
+  {
+    rotate(rotSpeed);
+    super.move();
+  }
 }
 class SpaceShip extends Floater  
 {   
@@ -143,31 +170,6 @@ class SpaceShip extends Floater
     
   } 
 
-  public void move ()   //move the floater in the current direction of travel
-  {      
-    //rotation speed
-    
-    //change the x and y coordinates by myDirectionX and myDirectionY       
-    myCenterX += myDirectionX;    
-    myCenterY += myDirectionY;     
-    //wrap around screen    
-    if(myCenterX >width)
-    {     
-      myCenterX = 0;    
-    }    
-    else if (myCenterX<0)
-    {     
-      myCenterX = width;    
-    }    
-    if(myCenterY >height)
-    {    
-      myCenterY = 0;    
-    }   
-    else if (myCenterY < 0)
-    {     
-      myCenterY = height;    
-    }   
-  }   
   public void setX(int x)
   {
     myCenterX = x;
