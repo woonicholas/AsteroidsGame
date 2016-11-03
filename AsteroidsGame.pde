@@ -1,6 +1,7 @@
 //your variable declarations here
 Asteroid rock[] = new Asteroid[25];
 SpaceShip joe = new SpaceShip();
+boolean gameOver = false;
 
 public void setup() 
 {
@@ -15,14 +16,28 @@ public void setup()
 }
 public void draw()
 {
-  background(0);  
-  joe.move();
-  joe.show();
-  for(int i = 0; i<rock.length ; i++)
+  background(0);
+  /*
+  if(joe.getX() !=joe.getColor())
   {
-  rock[i].move();
-  rock[i].show();
-
+    gameOver = true;
+  }
+  */
+  if(gameOver ==false)
+  {  
+    joe.move();
+    joe.show();
+    for(int i = 0; i<rock.length ; i++)
+    {
+      rock[i].move();
+      rock[i].show();
+    }
+  }
+  else if (gameOver == true) 
+  {
+    textSize(100);
+    textAlign(CENTER);
+    text("Game Over", 400, 400);  
   }
 //your code here
 }
@@ -40,12 +55,12 @@ public void keyPressed()
   if(key =='d')
   {
     joe.rotate(10);
-    joe.accelerate(.5);
+  
   }
   if(key =='a')
   {
     joe.rotate(-10 );
-    joe.accelerate(.5);
+    
   }
   if(key == 'h')
   {
@@ -209,6 +224,11 @@ class SpaceShip extends Floater
   public double getPointDirection() 
   {
     return myPointDirection;
+  }
+
+  public int getColor()
+  {
+    return myColor;
   }
 }
 abstract class Floater //Do NOT modify the Floater class! Make changes in the SpaceShip class 
