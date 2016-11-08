@@ -1,22 +1,31 @@
 //your variable declarations here
-Asteroid rock[] = new Asteroid[25];
+ArrayList <Asteroid> rock = new ArrayList <Asteroid>();
+Star[] space = new Star[100];
 SpaceShip joe = new SpaceShip();
-boolean gameOver = false;
+public boolean gameOver = false;
 
 public void setup() 
 {
   size(800,800);
-  for(int i = 0; i<rock.length; i++)
+  for(int i = 0; i<25; i++)
   {
-    rock[i] = new Asteroid();
-    rock[i].accelerate(1);
+    rock.add(i, new Asteroid());
   }
-
+  for(int j = 0;j<space.length;j++)
+  {
+    space[j] = new Star();
+  }
+  //System.out.println(rock);
   //your code here
 }
 public void draw()
 {
   background(0);
+  for(int j = 0;j<space.length;j++)
+  {
+    //space[j] = new Star();
+    space[j].show();
+  }
   /*
   if(joe.getX() !=joe.getColor())
   {
@@ -27,10 +36,10 @@ public void draw()
   {  
     joe.move();
     joe.show();
-    for(int i = 0; i<rock.length ; i++)
+    for(int i = 0; i<25 ; i++)
     {
-      rock[i].move();
-      rock[i].show();
+      rock.get(i).move();
+      rock.get(i).show();
     }
   }
   else if (gameOver == true) 
@@ -54,12 +63,12 @@ public void keyPressed()
   }
   if(key =='d')
   {
-    joe.rotate(10);
+    joe.rotate(5);
   
   }
   if(key =='a')
   {
-    joe.rotate(-10 );
+    joe.rotate(-5 );
     
   }
   if(key == 'h')
@@ -105,8 +114,8 @@ class Asteroid extends Floater
     myColor = color((int)(Math.random()*255),(int)(Math.random()*255),(int)(Math.random()*255));
     myCenterX =(int)(Math.random()*800);
     myCenterY=(int)(Math.random()*800);
-    myDirectionX=0;
-    myDirectionY=0;
+    myDirectionX=(Math.random()*2)-1;
+    myDirectionY=(Math.random()*2)-1;
     myPointDirection = (int)(Math.random()*800);
   }
   public void setX(int x)
@@ -305,6 +314,21 @@ abstract class Floater //Do NOT modify the Floater class! Make changes in the Sp
       vertex(xRotatedTranslated,yRotatedTranslated);    
     }   
     endShape(CLOSE);  
-  }   
-} 
+  }
+}
+class Star
+{
+  private int x,y;
+  public Star()
+    {
+      x = (int)(Math.random()*800);
+      y = (int)(Math.random()*800);
+    }
+  public void show()
+    {
+      stroke (255);
+      strokeWeight(2);
+      point (x,y);
+    }
+}   
 
