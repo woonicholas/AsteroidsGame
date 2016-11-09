@@ -23,8 +23,9 @@ public void draw()
   background(0);
   for(int j = 0;j<space.length;j++)
   {
-    //space[j] = new Star();
+    space[j] = new Star();
     space[j].show();
+
   }
   /*
   if(joe.getX() !=joe.getColor())
@@ -36,10 +37,15 @@ public void draw()
   {  
     joe.move();
     joe.show();
-    for(int i = 0; i<25 ; i++)
+    for(int i = 0; i<rock.size() ; i++)
     {
       rock.get(i).move();
       rock.get(i).show();
+      if(dist(joe.getX(), joe.getY(), rock.get(i).getX(), rock.get(i).getY())<20)
+      {
+      rock.remove(i);
+      rock.add(i, new Asteroid());
+      }
     }
   }
   else if (gameOver == true) 
