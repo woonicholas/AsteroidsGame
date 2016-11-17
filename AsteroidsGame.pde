@@ -23,7 +23,7 @@ public void draw()
   background(0);
   for(int j = 0;j<space.length;j++)
   {
-    space[j] = new Star();
+    //space[j] = new Star();
     space[j].show();
 
   }
@@ -47,6 +47,9 @@ public void draw()
       rock.add(i, new Asteroid());
       }
     }
+    Bullet b = new Bullet(joe);
+    b.show();
+    b.move();
   }
   else if (gameOver == true) 
   {
@@ -87,10 +90,71 @@ public void keyPressed()
 }
   public void keyReleased() 
   {
+    if(key == 'w'||key == 's')
+    {
       joe.setDirectionX(.5 *Math.cos(joe.getPointDirection()*(Math.PI/180)));
       joe.setDirectionY(.5 *Math.sin(joe.getPointDirection()*(Math.PI/180)));
-
+    }
   }
+class Bullet extends Floater
+{
+  private double dRadians =myPointDirection*(Math.PI/180);
+  public Bullet (SpaceShip theShip)
+  {
+    myColor = color(255,255,102);
+    myCenterX = theShip.getX();
+    myCenterY = theShip.getY();
+    myPointDirection = theShip.getPointDirection();
+    myDirectionX = (50*Math.cos(dRadians))+theShip.getDirectionX();
+    myDirectionY = (50*Math.sin(dRadians))+theShip.getDirectionY();
+  }
+  public void show()
+  {
+    stroke(myColor,50);
+    ellipse((float)myCenterX,(float)myCenterY,5,5);
+  }
+  public void setX(int x)
+    {
+      myCenterX = x;
+    }
+  public void setY(int y)
+  {
+    myCenterY=y;
+   //your code here
+  }
+  public int getX()
+  {
+    return (int)myCenterX;
+  }
+  public int getY()
+  {
+    return (int)myCenterY;
+  }
+  public void setDirectionX(double x) 
+  {
+    myDirectionX = x; 
+  }
+  public void setDirectionY(double y) 
+  {
+    myDirectionY = y;  
+  }
+  public double getDirectionX() 
+  {
+    return myDirectionX;
+  }
+  public double getDirectionY()
+  {
+    return myDirectionY;
+  }
+  public void setPointDirection(int degrees)
+  {
+    myPointDirection = degrees; 
+  }
+  public double getPointDirection() 
+  {
+    return myPointDirection;
+  }
+}
 class Asteroid extends Floater
 {
   private int rotSpeed;
