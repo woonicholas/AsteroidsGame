@@ -2,6 +2,7 @@
 ArrayList <Asteroid> rock = new ArrayList <Asteroid>();
 Star[] space = new Star[100];
 SpaceShip joe = new SpaceShip();
+ArrayList <Bullet> b = new ArrayList <Bullet>();
 public boolean gameOver = false;
 
 public void setup() 
@@ -47,9 +48,11 @@ public void draw()
       rock.add(i, new Asteroid());
       }
     }
-    Bullet b = new Bullet(joe);
-    b.show();
-    b.move();
+    for (int i = 0; i<b.size();i++)
+    {
+      b.get(i).move();
+      b.get(i).show();
+    }
   }
   else if (gameOver == true) 
   {
@@ -80,13 +83,19 @@ public void keyPressed()
     joe.rotate(-5 );
     
   }
-  if(key == 'h')
+  if(key == 104) //'h'
   {
     joe.setX((int)(Math.random()*800));
     joe.setY((int)(Math.random()*800));
     joe.setDirectionX(0);
     joe.setDirectionY(0);
   }
+
+  if(key == 32) //spacebar
+  {
+    b.add(new Bullet(joe));
+  }
+
 }
   public void keyReleased() 
   {
@@ -98,15 +107,15 @@ public void keyPressed()
   }
 class Bullet extends Floater
 {
-  private double dRadians =myPointDirection*(Math.PI/180);
+  private double dRadians = myPointDirection*(Math.PI/180);
   public Bullet (SpaceShip theShip)
   {
     myColor = color(255,255,102);
     myCenterX = theShip.getX();
     myCenterY = theShip.getY();
     myPointDirection = theShip.getPointDirection();
-    myDirectionX = (50*Math.cos(dRadians))+theShip.getDirectionX();
-    myDirectionY = (50*Math.sin(dRadians))+theShip.getDirectionY();
+    myDirectionX = (5*Math.cos(dRadians))+theShip.getDirectionX();
+    myDirectionY = (5*Math.sin(dRadians))+theShip.getDirectionY();
   }
   public void show()
   {
