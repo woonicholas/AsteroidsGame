@@ -1,7 +1,7 @@
 //your variable declarations here
 ArrayList <Asteroid> rock = new ArrayList <Asteroid>();
 Star[] space = new Star[100];
-SpaceShip joe = new SpaceShip();
+SpaceShip jet = new SpaceShip();
 ArrayList <Bullet> b = new ArrayList <Bullet>();
 public boolean gameOver = false;
 
@@ -29,29 +29,31 @@ public void draw()
 
   }
   /*
-  if(joe.getX() !=joe.getColor())
+  if(jet.getX() !=jet.getColor())
   {
     gameOver = true;
   }
   */
   if(gameOver ==false)
   {  
-    joe.move();
-    joe.show();
+    jet.move();
+    jet.show();
     for(int i = 0; i<rock.size() ; i++)
     {
-      rock.get(i).move();
-      rock.get(i).show();
-      if(dist(joe.getX(), joe.getY(), rock.get(i).getX(), rock.get(i).getY())<20)
+        rock.get(i).move();
+        rock.get(i).show();
+      for (int j = 0; j<b.size(); j++)
       {
-      rock.remove(i);
-      rock.add(i, new Asteroid());
+        b.get(j).move();
+        b.get(j).show();
+        if(dist(b.get(j).getX(), b.get(j).getY(), rock.get(i).getX(), rock.get(i).getY())<20)
+        {
+          rock.remove(i);
+          b.remove(j);
+        // rock.add(i, new Asteroid());
+        }
       }
-    }
-    for (int i = 0; i<b.size();i++)
-    {
-      b.get(i).move();
-      b.get(i).show();
+        
     }
   }
   else if (gameOver == true) 
@@ -67,33 +69,33 @@ public void keyPressed()
 {
   if(key == 'w')
   {
-    joe.accelerate(.5); // increases speed of ship
+    jet.accelerate(.5); // increases speed of ship
   }
   if(key =='s')
   {
-    joe.accelerate(-.5); //decreases speed of ship
+    jet.accelerate(-.5); //decreases speed of ship
   }
   if(key =='d')
   {
-    joe.rotate(5);
+    jet.rotate(5);
   
   }
   if(key =='a')
   {
-    joe.rotate(-5 );
+    jet.rotate(-5 );
     
   }
   if(key == 104) //'h'
   {
-    joe.setX((int)(Math.random()*800));
-    joe.setY((int)(Math.random()*800));
-    joe.setDirectionX(0);
-    joe.setDirectionY(0);
+    jet.setX((int)(Math.random()*800));
+    jet.setY((int)(Math.random()*800));
+    jet.setDirectionX(0);
+    jet.setDirectionY(0);
   }
 
   if(key == 32) //spacebar
   {
-    b.add(new Bullet(joe));
+    b.add(new Bullet(jet));
   }
 
 }
@@ -101,22 +103,23 @@ public void keyPressed()
   {
     if(key == 'w'||key == 's')
     {
-      joe.setDirectionX(.5 *Math.cos(joe.getPointDirection()*(Math.PI/180)));
-      joe.setDirectionY(.5 *Math.sin(joe.getPointDirection()*(Math.PI/180)));
+      jet.setDirectionX(.5 *Math.cos(jet.getPointDirection()*(Math.PI/180)));
+      jet.setDirectionY(.5 *Math.sin(jet.getPointDirection()*(Math.PI/180)));
     }
   }
 class Bullet extends Floater
 {
-  private double dRadians = myPointDirection*(Math.PI/180);
   public Bullet (SpaceShip theShip)
   {
     myColor = color(255,255,102);
     myCenterX = theShip.getX();
     myCenterY = theShip.getY();
     myPointDirection = theShip.getPointDirection();
-    myDirectionX = (5*Math.cos(dRadians))+theShip.getDirectionX();
-    myDirectionY = (5*Math.sin(dRadians))+theShip.getDirectionY();
+    double dRadians = myPointDirection*(Math.PI/180);
+    myDirectionX = 2*Math.cos(dRadians)+theShip.getDirectionX();
+    myDirectionY = 2*Math.sin(dRadians)+theShip.getDirectionY();
   }
+
   public void show()
   {
     stroke(myColor,50);
@@ -172,7 +175,7 @@ class Asteroid extends Floater
     rotSpeed = (int)(Math.random()*9)-5;
     if(rotSpeed == 0)
     {
-      rotSpeed ++;
+      rotSpeed ++; 
     }
     corners = 6;
     xCorners = new int[corners];
@@ -265,11 +268,11 @@ class SpaceShip extends Floater
     xCorners[5] = -6;
     yCorners[5] = 10;
     myColor = color(255,255,255);
-    myCenterX = 400;
+    myCenterX =400;
     myCenterY=400;
     myDirectionX=0;
     myDirectionY=0;
-    myPointDirection = 0;
+    myPointDirection = 270;
     
   } 
 
