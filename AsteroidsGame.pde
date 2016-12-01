@@ -3,7 +3,8 @@ ArrayList <Asteroid> rock = new ArrayList <Asteroid>();
 Star[] space = new Star[100];
 SpaceShip jet = new SpaceShip();
 ArrayList <Bullet> b = new ArrayList <Bullet>();
-public boolean gameOver = false;
+int score = 0;
+public boolean gameOver = true;
 
 public void setup() 
 {
@@ -42,6 +43,10 @@ public void draw()
     {
         rock.get(i).move();
         rock.get(i).show();
+        if(dist(jet.getX(),jet.getY(),rock.get(i).getX(), rock.get(i).getY())<20)
+        {
+          gameOver = true;
+        }
       for (int j = 0; j<b.size(); j++)
       {
         b.get(j).move();
@@ -50,17 +55,34 @@ public void draw()
         {
           rock.remove(i);
           b.remove(j);
-        // rock.add(i, new Asteroid());
+          score++;
+          rock.add(i, new Asteroid());
+          break;
         }
       }
-        
     }
+    fill(255,255,255,100);
+    textSize(40);
+    text("Score: " + score, 40,760);
   }
   else if (gameOver == true) 
   {
+    int buttonOpacity = 0;
+    fill(255);
     textSize(100);
     textAlign(CENTER);
-    text("Game Over", 400, 400);  
+    text("Game Over", 400, 400);
+    fill(255,255,255,100);
+    textSize(75);
+    text("Restart?", 400, 500);
+    fill(0,255,0,100);
+    rect(260,510,125,75); //green button
+    fill(255,0,0,100);
+    rect(400,510,125,75); //red button
+    textSize(50);
+    fill(255);
+    text("Yes",322.5,565);
+    text("No",465,565);
   }
 //your code here
 }
@@ -116,13 +138,14 @@ class Bullet extends Floater
     myCenterY = theShip.getY();
     myPointDirection = theShip.getPointDirection();
     double dRadians = myPointDirection*(Math.PI/180);
-    myDirectionX = 2*Math.cos(dRadians)+theShip.getDirectionX();
-    myDirectionY = 2*Math.sin(dRadians)+theShip.getDirectionY();
+    myDirectionX = 1*Math.cos(dRadians);//+theShip.getDirectionX();
+    myDirectionY = 1*Math.sin(dRadians);//+theShip.getDirectionY();
   }
 
   public void show()
   {
-    stroke(myColor,50);
+    stroke(myColor);
+    fill(myColor);
     ellipse((float)myCenterX,(float)myCenterY,5,5);
   }
   public void setX(int x)
