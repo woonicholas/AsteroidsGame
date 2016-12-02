@@ -4,7 +4,7 @@ Star[] space = new Star[100];
 SpaceShip jet = new SpaceShip();
 ArrayList <Bullet> b = new ArrayList <Bullet>();
 int score = 0;
-public boolean gameOver = true;
+public boolean gameOver = false;
 
 public void setup() 
 {
@@ -46,6 +46,7 @@ public void draw()
         if(dist(jet.getX(),jet.getY(),rock.get(i).getX(), rock.get(i).getY())<20)
         {
           gameOver = true;
+          rock.remove(i);
         }
       for (int j = 0; j<b.size(); j++)
       {
@@ -63,6 +64,7 @@ public void draw()
     }
     fill(255,255,255,100);
     textSize(40);
+    textAlign(LEFT);
     text("Score: " + score, 40,760);
   }
   else if (gameOver == true) 
@@ -83,6 +85,12 @@ public void draw()
     fill(255);
     text("Yes",322.5,565);
     text("No",465,565);
+    if(mouseX>=260&&mouseX<=385&&mouseY<=595&&mouseY>=510&&mousePressed ==true)
+    {
+      gameOver =false;
+      score = 0;
+    }
+
   }
 //your code here
 }
@@ -118,6 +126,8 @@ public void keyPressed()
   if(key == 32) //spacebar
   {
     b.add(new Bullet(jet));
+    if(b.size()>2)
+      b.remove(0);
   }
 
 }
