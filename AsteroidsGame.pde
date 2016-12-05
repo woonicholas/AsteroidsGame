@@ -71,9 +71,11 @@ public void draw()
   {
     int buttonOpacity = 0;
     fill(255);
-    textSize(100);
+    textSize(140);
     textAlign(CENTER);
-    text("Game Over", 400, 400);
+    text("Game Over", 400, 250);
+    textSize(100);
+    text("Score: " + score, 400,380);
     fill(255,255,255,100);
     textSize(75);
     text("Restart?", 400, 500);
@@ -127,7 +129,10 @@ public void keyPressed()
   {
     b.add(new Bullet(jet));
     if(b.size()>2)
-      b.remove(0);
+    {
+      b.remove(1);
+      //b.remove(2);
+    }
   }
 
 }
@@ -158,6 +163,12 @@ class Bullet extends Floater
     fill(myColor);
     ellipse((float)myCenterX,(float)myCenterY,5,5);
   }
+   public void move ()   //move the floater in the current direction of travel
+  {      
+    //change the x and y coordinates by myDirectionX and myDirectionY       
+    myCenterX += myDirectionX;    
+    myCenterY += myDirectionY;     
+  }   
   public void setX(int x)
     {
       myCenterX = x;
